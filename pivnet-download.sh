@@ -15,4 +15,3 @@ read FILENAME
 
 wget --post-data="" --header="Authorization: Token $AUTHTOKEN" $APIURL -O "$FILENAME"
 
-#wget --post-data="" --header="Authorization: Token iigMJxjc3wkqxRiknHR1" https://network.pivotal.io/api/v2/products/pivotal-container-service/releases/92793/product_files/130381/download -O "pivotal-container-service-1.0.3-build.15.pivotal"
