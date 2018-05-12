@@ -16,5 +16,4 @@ rm terraform*.zip
 
 echo "Executing Terraform to make sure it's in the path and executable."
 echo "You should see the usage help text from terraform"
-read -p "Hit <Enter> when ready"
 terraform

@@ -1,14 +1,18 @@
 #!/bin/bash
 
-echo "In which GCP Project will this account reside:"
-read PROJECT
-echo ""
-echo "What username do you want for this service account:"
-read USERNAME
-echo ""
-echo "What filename will the json key be written:"
-read FILENAME
-echo ""
+if [ $# -lt 2 ] ; then
+	echo "Usage: $0 <project> <username>"
+	echo ""
+	echo "where:"
+	echo "     project:   the google project where all will be deployed"
+	echo "     username:  the new service account user name"
+	echo ""
+	exit 1
+fi
+
+PROJECT="$1"
+USERNAME="$2"
+FILENAME="${USERNAME}-terraform-json.key"
 
 gcloud iam service-accounts create ${USERNAME} --display-name "${USERNAME} Service Account"
 gcloud iam service-accounts keys create "${FILENAME}" --iam-account "${USERNAME}@${PROJECT}.iam.gserviceaccount.com"
