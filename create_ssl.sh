@@ -8,6 +8,20 @@ if [ ! -f "ca.cnf.base" ]; then
     exit 1
 fi
 
+if [ $# -lt 1 ] ; then
+	echo "Usage: $0 FQDN"
+	echo ""
+	echo "where:"
+	echo "     FQDN:   the domain at the top level of PAS / PKS cluster"
+	echo ""
+	echo "Wildcard certs will be included suitable for PAS / PKS"
+	exit 1
+fi
+
+PROJECT="$1"
+USERNAME="$2"
+FILENAME="${USERNAME}-terraform-json.key"
+
 rm -rf $OUTDIR
 mkdir $OUTDIR
 touch $OUTDIR/index.txt
