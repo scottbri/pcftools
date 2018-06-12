@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sudo apt-get install unzip
+
 echo "Downloading Terraform 64bit for Linux from https://www.terraform.io/downloads.html"
 wget https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip
 
