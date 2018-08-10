@@ -12,7 +12,7 @@ fi
 
 PROJECT="$1"
 USERNAME="$2"
-FILENAME="${USERNAME}-terraform-json.key"
+FILENAME="${USERNAME}-terraform.key.json"
 
 gcloud iam service-accounts create ${USERNAME} --display-name "${USERNAME} Service Account"
 gcloud iam service-accounts keys create "${FILENAME}" --iam-account "${USERNAME}@${PROJECT}.iam.gserviceaccount.com"
