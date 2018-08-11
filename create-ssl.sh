@@ -1,8 +1,9 @@
 CERTDNS=$1
 OUTDIR="./ssl-out"
+SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 CERTSTRING="/C=US/ST=Anystate/L=Anycity/O=HarnessingUnicorns/CN=HarnessingUnicorns ROOT CA"
 
-if [ ! -f "ca.cnf.base" ]; then
+if [ ! -f "$SCRIPTDIR/ca.cnf.base" ]; then
     echo "ca.cnf.base is required and does not exist in the current directory"
     echo "Aborting"
     exit 1
@@ -60,9 +61,9 @@ echo "Issue Certificate"
 openssl ca -config ./ca.cnf -batch -notext \
 	-in "$OUTDIR/$CERTDNS.csr" \
 	-out "$OUTDIR/$CERTDNS.crt" \
-	-cert ./$OUTDIR/root.crt \
-	-keyfile ./$OUTDIR/root.key.pem
+	-cert $OUTDIR/root.crt \
+	-keyfile $OUTDIR/root.key.pem
 
 # Chain certificate with CA
 echo "Chain certificate with CA"
-cat "${OUTDIR}/$CERTDNS.crt" ./$OUTDIR/root.crt > "${OUTDIR}/$CERTDNS.bundle.crt"
+cat "${OUTDIR}/$CERTDNS.crt" $OUTDIR/root.crt > "${OUTDIR}/$CERTDNS.bundle.crt"
