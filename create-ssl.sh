@@ -29,41 +29,34 @@ touch $OUTDIR/index.txt
 echo "unique_subject = no" > $OUTDIR/index.txt.attr
 echo 1000 > $OUTDIR/serial
 
-cp ca.cnf.base ca.cnf
+cp $SCRIPTDIR/ca.cnf.base $OUTDIR/ca.cnf
 SUBJECTALTNAME="subjectAltName = DNS:${CERTDNS},DNS:*.sys.${CERTDNS},DNS:*.login.sys.${CERTDNS},DNS:*.uaa.sys.${CERTDNS},DNS:*.apps.${CERTDNS}"
-echo $SUBJECTALTNAME >> ca.cnf
+echo $SUBJECTALTNAME >> $OUTDIR/ca.cnf
 
 echo 'Done setting things up'
 
-echo "Create Root Cert"
-openssl req -config ca.cnf \
+echo "Create Root Private Key and Root Cert"
+openssl req -config $OUTDIR/ca.cnf \
 	-newkey rsa:2048 -nodes -keyout $OUTDIR/root.key.pem \
 	-new -x509 -days 7300 -out $OUTDIR/root.crt \
 	-subj "$CERTSTRING"
 
 #Create CSR
 echo "Create Cert Key"
-openssl req -new -out "$OUTDIR/$CERTDNS.csr" \
+openssl req -new -out "$OUTDIR/$CERTDNS.key.pem" \
 	-key $OUTDIR/root.key.pem \
 	-reqexts SAN \
-	-config ./ca.cnf \
+	-config $OUTDIR/ca.cnf \
 	-subj "/C=US/ST=Anystate/L=Anycity/O=HarnessingUnicorns/OU=${CERTDNS}/CN=${CERTDNS}"
-
-#openssl req -new -out "$OUTDIR/$CERTDNS.csr" \
-#	-key $OUTDIR/$CERTDNS.cert.key.pem \
-#	-reqexts SAN \
-#	-config <(cat ca.cnf \
-#		<(printf "[SAN]\nsubjectAltName=${CERTSTRING}")) \
-#	-subj "/C=US/ST=Anystate/L=Anycity/O=HarnessingUnicorns/OU=$CERTDNS/CN=*.$CERTDNS"
 
 # Issue certificate
 echo "Issue Certificate"
-openssl ca -config ./ca.cnf -batch -notext \
-	-in "$OUTDIR/$CERTDNS.csr" \
+openssl ca -config $OUTDIR/ca.cnf -batch -notext \
+	-in "$OUTDIR/$CERTDNS.key.pem" \
 	-out "$OUTDIR/$CERTDNS.crt" \
 	-cert $OUTDIR/root.crt \
 	-keyfile $OUTDIR/root.key.pem
 
-# Chain certificate with CA
-echo "Chain certificate with CA"
-cat "${OUTDIR}/$CERTDNS.crt" $OUTDIR/root.crt > "${OUTDIR}/$CERTDNS.bundle.crt"
+### Chain certificate with CA
+##echo "Chain certificate with CA"
+##cat "${OUTDIR}/$CERTDNS.crt" $OUTDIR/root.crt > "${OUTDIR}/$CERTDNS.bundle.crt"

@@ -3,9 +3,4 @@
 #sudo apt-get update
 #sudo apt-get install om
 
-
-mkdir ~/bin 2>/dev/null
-cd ~/bin
-wget https://github.com/pivotal-cf/om/releases/download/0.38.0/om-linux
-chmod +x ./om-linux
-mv om-linux om
+echo "procedure is here https://docs.pivotal.io/runtimes/pks/1-0/installing-pks-cli.html#linux"
