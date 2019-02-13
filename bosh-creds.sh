@@ -16,8 +16,10 @@ PCF_OPSMAN_FQDN="$1"
 PCF_OPSMAN_ADMIN_USER="$2"
 PCF_OPSMAN_ADMIN_PASSWD="$3"
 
+OM=`which om`
+
 BOSH_CREDS=$( \
-  om \
+  ${OM} \
     --skip-ssl-validation \
     --target ${PCF_OPSMAN_FQDN} \
     --username ${PCF_OPSMAN_ADMIN_USER} \
@@ -28,10 +30,12 @@ BOSH_CREDS=$( \
         jq --raw-output '.credential' \
 )
 
+echo "# Sudo-ing to create /var/tempest/workspaces/default/root_ca_certificate with OpsMan Root CA"
+echo "# You may need to supply your local user password for sudo"
 sudo mkdir -p /var/tempest/workspaces/default
 
 sudo sh -c \
-  "om \
+  "${OM} \
     --skip-ssl-validation \
     --target ${PCF_OPSMAN_FQDN} \
     --username ${PCF_OPSMAN_ADMIN_USER} \
@@ -41,8 +45,6 @@ sudo sh -c \
       --path "/api/v0/security/root_ca_certificate" |
         jq --raw-output '.root_ca_certificate_pem' \
           > /var/tempest/workspaces/default/root_ca_certificate"
-
-echo $BOSH_CREDS
 
 for BOSH_CRED in ${BOSH_CREDS}
 do
