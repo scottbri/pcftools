@@ -1,0 +1,38 @@
+#!/bin/bash
+set -e
+PCF_DOMAIN_NAME=$1
+
+cat > ./${PCF_DOMAIN_NAME}.cnf <<-EOF
+[req]
+default_bits = 2048
+prompt = no
+default_md = sha256
+req_extensions = req_ext
+distinguished_name = dn
+
+[ dn ]
+C=US
+ST=California
+L=San Francisco
+O=PIVOTAL, INC.
+OU=Workshops
+CN = ${PCF_DOMAIN_NAME}
+
+[ req_ext ]
+subjectAltName = @alt_names
+
+[ alt_names ]
+DNS.1 = *.sys.${PCF_DOMAIN_NAME}
+DNS.2 = *.login.sys.${PCF_DOMAIN_NAME}
+DNS.3 = *.uaa.sys.${PCF_DOMAIN_NAME}
+DNS.4 = *.apps.${PCF_DOMAIN_NAME}
+DNS.5 = *.pks.${PCF_DOMAIN_NAME}
+EOF
+
+openssl req -x509 \
+  -newkey rsa:2048 \
+  -nodes \
+  -keyout ${PCF_DOMAIN_NAME}.key \
+  -out ${PCF_DOMAIN_NAME}.cert \
+  -config ${PCF_DOMAIN_NAME}.cnf
+
