@@ -4,7 +4,11 @@ BINDIR="~/bin"
 GITUSER="Scott Brightwell"
 GITEMAIL="scott@brightwell.org"
 
-INSTALL_BINARIES=false
+INSTALL_BINARIES=true
+SETUP_GIT=true
+
+$INSTALL_BINARIES && (echo "Installing binaries:"; install-binaries)
+$SETUP_GIT && (echo "Setting up git"; setup-git)
 
 function setup-git {
 	git config --global user.name "${GITUSER}"
