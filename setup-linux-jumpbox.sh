@@ -57,6 +57,10 @@ function install-binaries {
 	chmod +x ${BINDIR}/direnv.linux-amd64
 	ln -s ${BINDIR}/direnvlinux-amd64 ${BINDIR}/direnv
 
+	wget https://github.com/concourse/concourse/releases/download/v4.2.3/fly_linux_amd64
+	mv fly_linux_amd64 ${BINDIR}/fly
+	chmod +x ${BINDIR}/fly
+
 	curl -L https://aka.ms/InstallAzureCli | bash
 }
 
