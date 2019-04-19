@@ -18,7 +18,6 @@ function setup-git {
 function install-binaries {
 	mkdir ${BINDIR}
 	wget https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
-	unzip terraform_0.11.13_linux_amd64.zip
 	sudo apt-get install unzip
 	unzip terraform_0.11.13_linux_amd64.zip
 	mv terraform ${BINDIR}/
