@@ -1,22 +1,27 @@
 #!/bin/bash
 
-BINDIR="~/bin"
+BINDIR="${HOME}/bin"
 GITUSER="Scott Brightwell"
 GITEMAIL="scott@brightwell.org"
 
 INSTALL_BINARIES=true
 SETUP_GIT=true
 
-$INSTALL_BINARIES && (echo "Installing binaries:"; install-binaries)
-$SETUP_GIT && (echo "Setting up git"; setup-git)
 
 function setup-git {
 	git config --global user.name "${GITUSER}"
 	git config --global user.email "${GITEMAIL}"
 }
 
+function setup-bash-it {
+	git clone http://github.com/scottbri/bash-it
+	mv bash-it ${HOME}/.bash-it
+	${HOME}/.bash-it install.sh --silent
+	sed -i.bak 's/BASH_IT_THEME=.*/BASH_IT_THEME=scott/' ${HOME}/.bash_profile 
+}
+
 function install-binaries {
-	mkdir ${BINDIR}
+	mkdir ${BINDIR} || exit 1
 	wget https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
 	sudo apt-get install unzip
 	unzip terraform_0.11.13_linux_amd64.zip
@@ -63,3 +68,6 @@ function install-binaries {
 	curl -L https://aka.ms/InstallAzureCli | bash
 }
 
+$INSTALL_BINARIES && (echo "Installing binaries:"; install-binaries)
+$SETUP_GIT && (echo "Setting up git"; setup-git)
+$SETUP_BASH && (echo "Setting up bash-it"; setup-bash-it)
