@@ -30,8 +30,10 @@ function install-binaries {
 
   
 	mkdir ${BINDIR} || exit 1
+  TERRAFORM=terraform_0.11.13_linux_amd64.zip
 	wget -q https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
-	unzip terraform_0.11.13_linux_amd64.zip
+	unzip $TERRAFORM
+	rm $TERRAFORM
 	mv terraform ${BINDIR}/
 	chmod +x ${BINDIR}/terraform
 
@@ -58,6 +60,7 @@ function install-binaries {
 	#wget -q https://github.com/cloudfoundry-incubator/credhub-cli/releases/download/2.2.1/credhub-linux-2.2.1.tgz
 	wget -q https://github.com/cloudfoundry-incubator/credhub-cli/releases/download/2.6.1/credhub-linux-2.6.1.tgz
 	tar zxvf $CREDHUB
+  rm $CREDHUB
 	mv credhub ${BINDIR}/
 	chmod +x ${BINDIR}/credhub
 
