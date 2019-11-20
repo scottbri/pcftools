@@ -25,7 +25,8 @@ function setup-bash-it {
 function install-binaries {
 	wget -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add -
 	apt-get update
-	apt-get install -y unzip cf-cli build-essential ruby-dev ruby python vim
+	apt-get install -y unzip build-essential ruby-dev ruby python vim
+  apt-get install -y cf-cli 
 
   
 	mkdir ${BINDIR} || exit 1
