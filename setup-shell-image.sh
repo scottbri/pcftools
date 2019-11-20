@@ -16,7 +16,8 @@ function setup-bash-it {
 	git clone http://github.com/scottbri/bash-it
 	mv bash-it ${HOME}/.bash-it
 	${HOME}/.bash-it/install.sh --silent
-	sed -i.bak 's/BASH_IT_THEME=.*/BASH_IT_THEME=scott/' ${HOME}/.bashrc
+  mv ${HOME}/.bash-it/dot.bash_profile ${HOME}/.bash_profile
+  mv ${HOME}/.bash-it/dot.bash_prompt ${HOME}/.bash_prompt
 }
 
 function install-binaries {
