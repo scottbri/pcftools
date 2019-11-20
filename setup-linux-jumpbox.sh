@@ -28,28 +28,34 @@ function install-binaries {
 	mv terraform ${BINDIR}/
 	chmod +x ${BINDIR}/terraform
 
-	wget https://github.com/pivotal-cf/om/releases/download/0.54.0/om-linux
-	mv om-linux ${BINDIR}/
-	chmod +x ${BINDIR}/om-linux
-	ln -s ${BINDIR}/om-linux ${BINDIR}/om
+	OMLINUX=om-linux-4.3.0
+	#wget https://github.com/pivotal-cf/om/releases/download/0.54.0/om-linux
+	wget https://github.com/pivotal-cf/om/releases/download/4.3.0/om-linux-4.3.0
+	mv $OMLINUX ${BINDIR}/
+	chmod +x ${BINDIR}/$OMLINUX
+	ln -s ${BINDIR}/$OMLINUX ${BINDIR}/om
 
 	wget https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
 	mv jq-linux64 ${BINDIR}/
 	chmod +x ${BINDIR}/jq-linux64
 	ln -s ${BINDIR}/jq-linux64 ${BINDIR}/jq
 
-	wget https://github.com/cloudfoundry/bosh-cli/releases/download/v5.4.0/bosh-cli-5.4.0-linux-amd64
-	mv bosh-cli-5.4.0-linux-amd64 ${BINDIR}/
-	chmod +x ${BINDIR}/bosh-cli-5.4.0-linux-amd64
-	ln -s ${BINDIR}/bosh-cli-5.4.0-linux-amd64 ${BINDIR}/bosh
+	BOSHCLI=bosh-cli-6.1.1-linux-amd64
+	#wget https://github.com/cloudfoundry/bosh-cli/releases/download/v5.4.0/bosh-cli-5.4.0-linux-amd64
+	wget https://github.com/cloudfoundry/bosh-cli/releases/download/v6.1.1/bosh-cli-6.1.1-linux-amd64
+	mv $BOSHCLI ${BINDIR}/
+	chmod +x ${BINDIR}/$BOSHCLI
+	ln -s ${BINDIR}/$BOSHCLI ${BINDIR}/bosh
 
 	wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
 	#echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apundry-cli.list.d/cloudfoundry-cli.list
 	sudo apt-get update
 	sudo apt-get install cf-cli
 
-	wget https://github.com/cloudfoundry-incubator/credhub-cli/releases/download/2.2.1/credhub-linux-2.2.1.tgz
-	tar zxvf credhub-linux-2.2.1.tgz
+	CREDHUB=credhub-linux-2.6.1.tgz
+	#wget https://github.com/cloudfoundry-incubator/credhub-cli/releases/download/2.2.1/credhub-linux-2.2.1.tgz
+	wget https://github.com/cloudfoundry-incubator/credhub-cli/releases/download/2.6.1/credhub-linux-2.6.1.tgz
+	tar zxvf $CREDHUB
 	mv credhub ${BINDIR}/
 	chmod +x ${BINDIR}/credhub
 
@@ -66,6 +72,12 @@ function install-binaries {
 	chmod +x ${BINDIR}/fly
 
 	curl -L https://aka.ms/InstallAzureCli | bash
+	
+	PIVNET=pivnet-linux-amd64-0.0.74
+	wget https://github.com/pivotal-cf/pivnet-cli/releases/download/v0.0.74/pivnet-linux-amd64-0.0.74
+	mv $PIVNET ${BINDIR}/
+	chmod +x ${BINDIR}/$PIVNET
+	ln -s ${BINDIR}/$PIVNET ${BINDIR}/pivnet
 }
 
 $INSTALL_BINARIES && (echo "Installing binaries:"; install-binaries)
