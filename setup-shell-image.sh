@@ -22,7 +22,7 @@ function setup-bash-it {
 function install-binaries {
 	mkdir ${BINDIR} || exit 1
 	wget https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
-	apt-get install unzip
+	apt-get install -y unzip
 	unzip terraform_0.11.13_linux_amd64.zip
 	mv terraform ${BINDIR}/
 	chmod +x ${BINDIR}/terraform
@@ -49,7 +49,7 @@ function install-binaries {
 	wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add -
 	#echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apundry-cli.list.d/cloudfoundry-cli.list
 	apt-get update
-	apt-get install cf-cli
+	apt-get install -y cf-cli
 
 	CREDHUB=credhub-linux-2.6.1.tgz
 	#wget https://github.com/cloudfoundry-incubator/credhub-cli/releases/download/2.2.1/credhub-linux-2.2.1.tgz
@@ -58,7 +58,7 @@ function install-binaries {
 	mv credhub ${BINDIR}/
 	chmod +x ${BINDIR}/credhub
 
-	apt-get install build-essential ruby-dev ruby
+	apt-get install -y build-essential ruby-dev ruby
 	gem install cf-uaac
 
 	wget https://github.com/direnv/direnv/releases/download/v2.19.2/direnv.linux-amd64
