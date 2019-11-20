@@ -6,6 +6,7 @@ GITEMAIL="scott@brightwell.org"
 
 INSTALL_BINARIES=true
 SETUP_GIT=true
+SETUP_BASH=true
 
 function setup-git {
 	git config --global user.name "${GITUSER}"
