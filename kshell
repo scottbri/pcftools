@@ -3,5 +3,9 @@ KUBENAMESPACE=${KUBENAMESPACE:="default"}
 KUBEOBJECT=${KUBEOBJECT:="deploy/shell"}
 ARGUMENTS="$@"
 
+ORIGCONTEXT=$(kubectl config current-context)
+
 kubectl config use-context ${KUBECONTEXT}
 kubectl exec ${KUBEOBJECT} -n ${KUBENAMESPACE} -it -- /bin/bash
+
+kubectl config use-context $ORIGCONTEXT
