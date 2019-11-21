@@ -1,0 +1,7 @@
+KUBECONTEXT=${KUBECONTEXT:="test-azure"} 
+KUBENAMESPACE=${KUBENAMESPACE:="default"}
+KUBEOBJECT=${KUBEOBJECT:="deploy/shell"}
+ARGUMENTS="$@"
+
+kubectl config use-context ${KUBECONTEXT}
+kubectl exec ${KUBEOBJECT} -n ${KUBENAMESPACE} -it -- /bin/bash
