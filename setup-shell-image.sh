@@ -19,7 +19,7 @@ function setup-bash-it {
 	${HOME}/.bash-it/install.sh --silent
   mv ${HOME}/.bash-it/dot.bash_profile ${HOME}/.bash_profile
   mv ${HOME}/.bash-it/dot.bash_prompt ${HOME}/.bash_prompt
-  rm ${HOME}/.bashrc ; ln -s ${HOME}/.bash_profile ${HOME}/.bashrc
+  rm ${HOME}/.bashrc 
 }
 
 function install-binaries {
