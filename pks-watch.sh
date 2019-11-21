@@ -12,7 +12,7 @@ function usage {
 	echo ""
 	echo "Notes on setup prior to usage:"
 	echo "Start by configuring PKS API access"
-	echo "  $ pks login -a PKS-API --client-name CLIENT-NAME --client-secret CLIENT-SECRET -k"
+	echo "  $ pks login -a PKS-API -u USERNAME -k"
 	echo ""
 }
 
@@ -44,7 +44,7 @@ function wait_for_it {
   ORIG_CLUSTER_STATUS=$(pks cluster $CLUSTER_NAME --json  | jq  -r .last_action_state)
   CLUSTER_STATUS="$ORIG_CLUSTER_STATUS"
   echo "Cluster status is \"$CLUSTER_STATUS\" at `date`"
-  echo -n "Monitoring for status change..."
+  echo -n "Monitoring for status change every ${WAIT} seconds: ."
   while [ "$CLUSTER_STATUS" = "$ORIG_CLUSTER_STATUS" ]
   do
       sleep $WAIT
