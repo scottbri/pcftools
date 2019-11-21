@@ -30,6 +30,12 @@ function install-binaries {
 
   
 	mkdir ${BINDIR} || exit 1
+
+  DIRENV=direnv_2.15.0-1_amd64.deb
+  wget -q http://mirrors.kernel.org/ubuntu/pool/universe/d/direnv/direnv_2.15.0-1_amd64.deb
+  apt install ./$DIRENV
+  rm $DIRENV
+
   TERRAFORM=terraform_0.11.13_linux_amd64.zip
 	wget -q https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
 	unzip $TERRAFORM
