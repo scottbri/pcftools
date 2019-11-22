@@ -4,6 +4,7 @@ KUBEOBJECT=${KUBEOBJECT:="deploy/shell"}
 ARGUMENTS="$@"
 
 ORIGCONTEXT=$(kubectl config current-context)
+echo "Current context is ${ORIGCONTEXT}."
 
 kubectl config use-context ${KUBECONTEXT}
 kubectl exec ${KUBEOBJECT} -n ${KUBENAMESPACE} -it -- /bin/bash
