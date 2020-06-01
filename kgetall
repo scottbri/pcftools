@@ -1,0 +1,1 @@
+kubectl api-resources --verbs=list -o name | xargs -n 1 kubectl get -oyaml -o name 
