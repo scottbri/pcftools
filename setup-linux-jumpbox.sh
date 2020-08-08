@@ -66,9 +66,9 @@ function install-binaries {
 	sudo gem install cf-uaac
 
 	wget https://github.com/direnv/direnv/releases/download/v2.19.2/direnv.linux-amd64
-	mv direnv.linux-amd64 ${BINDIR}/
-	chmod +x ${BINDIR}/direnv.linux-amd64
-	ln -s ${BINDIR}/direnvlinux-amd64 ${BINDIR}/direnv
+	mv direnv.linux-amd64 ${BINDIR}/direnv-linux-amd64
+	chmod +x ${BINDIR}/direnv-linux-amd64
+	ln -s ${BINDIR}/direnv-linux-amd64 ${BINDIR}/direnv
 
 	#wget https://github.com/concourse/concourse/releases/download/v4.2.3/fly_linux_amd64
 	wget https://github.com/concourse/concourse/releases/download/v6.1.0/fly-6.1.0-linux-amd64.tgz
@@ -90,7 +90,13 @@ function install-binaries {
 	chmod +x ${BINDIR}/${BINARY}
 	rm ${BINDIR}/${BINARY} ln -s ${BINDIR}/${BINARY} ${BINDIR}/duffle
 
-  curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`${BINDIR}kubectl
+  BINARY=kubectl
+  curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl
+	mv $BINARY ${BINDIR}/
+	chmod +x ${BINDIR}/${BINARY}
+	rm ${BINDIR}/${BINARY} ln -s ${BINDIR}/${BINARY} ${BINDIR}/kubectl
+
+  sudo apt install docker.io
 
 }
 
