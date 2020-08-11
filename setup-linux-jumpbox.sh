@@ -30,6 +30,18 @@ function install-binaries {
 	unzip terraform_0.11.13_linux_amd64.zip
 	mv terraform ${BINDIR}/
 	chmod +x ${BINDIR}/terraform
+	
+  BINARY=ytt-linux-amd64
+	wget https://github.com/k14s/ytt/releases/download/v0.30.0/ytt-linux-amd64
+	mv $BINARY ${BINDIR}/
+	chmod +x ${BINDIR}/${BINARY}
+	ln -s ${BINDIR}/${BINARY} ${BINDIR}/ytt
+
+  BINARY=kapp-linux-amd64
+	wget https://github.com/k14s/kapp/releases/download/v0.33.0/kapp-linux-amd64
+	mv $BINARY ${BINDIR}/
+	chmod +x ${BINDIR}/${BINARY}
+	ln -s ${BINDIR}/${BINARY} ${BINDIR}/kapp
 
 	BINARY=om-linux-5.0.0
 	wget https://github.com/pivotal-cf/om/releases/download/5.0.0/${BINARY}
