@@ -31,6 +31,14 @@ function install-binaries {
 	mv terraform ${BINDIR}/
 	chmod +x ${BINDIR}/terraform
 	
+  BINARY=helm
+  mkdir helmtemp; cd helmtemp
+  wget https://get.helm.sh/helm-v2.16.9-linux-amd64.tar.gz
+	mv linux-amd64/helm ${BINDIR}/
+	mv linux-amd64/tiller ${BINDIR}/
+  cd ..
+  rm -rf helmtemp
+
   BINARY=ytt-linux-amd64
 	wget https://github.com/k14s/ytt/releases/download/v0.30.0/ytt-linux-amd64
 	mv $BINARY ${BINDIR}/
